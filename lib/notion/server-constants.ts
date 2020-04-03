@@ -1,2 +1,2 @@
-export const PAGE_ID = '1a86e7f6-d6a5-4537-a2e5-15650c1888b8'
+export const PAGE_ID = 'e6aee365-7b9d-42b6-9c96-78ad6b01be0e'
 export const API_ENDPOINT = 'https://www.notion.so/api/v3'

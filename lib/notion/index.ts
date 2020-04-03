@@ -28,9 +28,7 @@ export default async function getNotionData() {
       list = null;
       const child = {
         type: "image",
-        src: `/api/asset?assetUrl=${encodeURIComponent(
-          value.format.display_source as any
-        )}&blockId=${value.id}`
+        src: value.format.display_source
       };
       section.children.push(child);
     } else if (value.type === "text") {
@@ -82,6 +80,13 @@ export default async function getNotionData() {
           });
         }
       }
+    } else if (value.type === 'bookmark') {
+      const child = {
+        type: 'bookmark',
+        url: value.properties.link[0][0],
+        image: value.format.bookmark_icon || value.format.bookmark_cover || null
+      }
+      section.children.push(child)
     } else {
       list = null;
       console.log("UNHANDLED", value);

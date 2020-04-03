@@ -66,9 +66,9 @@ export default function Page({ sections, etag, meta }) {
               )}
             </header>
             <div className="content">
-              {section.children.map(subsection =>
+              {section.children.map((subsection, j) =>
                 subsection.type === "image" ? (
-                  <span className={`image ${i === 0 ? "fill" : "main"}`}>
+                  <span className={`image ${i === 0 ? "fill" : "main"}`} key={`subsection-${i}-${j}`}>
                     <NotionImage src={subsection.src} />
                   </span>
                 ) : subsection.type === "text" ? (
@@ -81,40 +81,14 @@ export default function Page({ sections, etag, meta }) {
                       ))}
                     </ul>
                   )
+                ) : subsection.type === "bookmark" ? (
+                  <a key={`subsection-${i}-${j}`} href={subsection.url} target='_blank' rel='noreferer noopener'><img src={subsection.image} width="40" height="40" /></a>
                 ) : null
               )}
             </div>
           </section>
         );
       })}
-      <section>
-        <header>
-          <h2>Get Started</h2>
-        </header>
-        <div className="content">
-          <p>Get started with Now + Next.js</p>
-          <ul className="actions">
-            <li>
-              <a
-                href="https://zeit.co"
-                target="_blank"
-                className="button primary large"
-              >
-                Get Started
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://zeit.co/blog/serverless-pre-rendering"
-                target="_blank"
-                className="button large"
-              >
-                Learn More
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
       <div className="copyright">
         Created by{" "}
         <a href="https://zeit.co" target="_blank">
@@ -168,7 +142,7 @@ export default function Page({ sections, etag, meta }) {
   );
 }
 
-export async function unstable_getStaticProps() {
+export async function getStaticProps() {
   const notionData = await getNotionData()
   const { sections, meta } = notionData
 
