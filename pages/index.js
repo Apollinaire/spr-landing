@@ -5,25 +5,25 @@ import { useState, useEffect } from "react";
 import getNotionData from '../lib/notion'
 
 export default function Page({ sections, etag, meta }) {
-  const focused = useFocus();
-  useEffect(
-    () => {
-      if (focused) {
-        fetch(window.location, {
-          headers: {
-            pragma: "no-cache"
-          }
-        }).then(async res => {
-          const text = await res.text()
+  // const focused = useFocus();
+  // useEffect(
+  //   () => {
+  //     if (focused) {
+  //       fetch(window.location, {
+  //         headers: {
+  //           pragma: "no-cache"
+  //         }
+  //       }).then(async res => {
+  //         const text = await res.text()
 
-          if (text.indexOf(etag) === -1) {
-            window.location.reload();
-          }
-        }).catch(() => {});
-      }
-    },
-    [focused]
-  );
+  //         if (text.indexOf(etag) === -1) {
+  //           window.location.reload();
+  //         }
+  //       }).catch(() => {});
+  //     }
+  //   },
+  //   [focused]
+  // );
 
   const color = Color(meta.color ? meta.color[0][0] : "#49fcd4");
   const color2 = color.darken(0.4);
